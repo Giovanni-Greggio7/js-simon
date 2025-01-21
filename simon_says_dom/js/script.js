@@ -73,27 +73,51 @@ function displayNumbers(numbers){
 displayNumbers(numeriRandom)
 
 // Creo un intervallo per nascondere i 5 numeri e inserire il form con quelli che l'utente dovrà aggiungere
+const contatore = document.getElementById("countdown")
+let counter = 30;
+let timer;
 
-setInterval(dNoneFunction, 1000)
+setInterval(function dNoneFunction(){
+    
 
-function dNoneFunction(){
-    const list = document.getElementById("numbers-list").classList
-    list.add("d-none");
-    const form = document.getElementById("answers-form").classList
-    form.remove("d-none");
-}
 
-const form = document.getElementById("answers-form");
+    if( counter === -1 ){
 
-form.addEventListener("submit", function (event) {
+        clearInterval( dNoneFunction )
+
+        const list = document.getElementById("numbers-list").classList
+        list.add("d-none");
+
+        const form = document.getElementById("answers-form").classList
+        form.remove("d-none");
+
+        const instructions = document.getElementById("instructions").classList
+        instructions.add("d-none");
+
+        const count = document.getElementById("countdown").classList
+        count.add("d-none");
+
+    } else {
+        contatore.innerHTML = counter--
+    }
+    return counter
+
+}, 1000)
+
+
+const valore = document.querySelectorAll (".form-control");
+const button = document.querySelector("button");
+const datiUtente = [];
+
+button.addEventListener("click", function (event) {
     event.preventDefault();
-    const datiUtente = [];
-    for (let i = 1; i <= 5; i++) {
-        const valore = document.getElementsByClassName(".form-control").value;
-        datiUtente.push(valore);
+    for (let i = 0; i < valore.length; i++) {
+        datiUtente.push(parseInt(valore[i].value));
+        console.log(datiUtente);
       }
-      console.log(datiUtente);
 })
+
+
 
 
 
