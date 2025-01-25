@@ -13,133 +13,83 @@
 // > - Individuate gli elementi di cui avete bisogno per realizzare il programma.
 // > - Immaginate la logica come fosse uno snack: "Dati 2 array di numeri, indica quali e quanti numeri ci sono in comune tra i due array"
 
-// const numero1 = document.getElementById('number1');
-// const numero2 = document.getElementById('number2');
-// const numero3 = document.getElementById('number3');
-// const numero4 = document.getElementById('number4');
-// const numero5 = document.getElementById('number5');
-
-// const num1 = Math.floor(Math.random()* 50) + 1;
-// const num2 = Math.floor(Math.random()* 50) + 1;
-// const num3 = Math.floor(Math.random()* 50) + 1;
-// const num4 = Math.floor(Math.random()* 50) + 1;
-// const num5 = Math.floor(Math.random()* 50) + 1;
-
-// console.log(num1, num2, num3, num4, num5)
-
-// const clock = setInterval(random, 30000);
-
-// function random(){
-
-//     let counter = 30
-//     console.log(counter--)
-
-//     number1.innerHTML = num1
-//     number2.innerHTML = num2
-//     number3.innerHTML = num3
-//     number4.innerHTML = num4
-//     number5.innerHTML = num5
-// }
-
-// random()
-
 //Creo un Array per i 5 numeri randomici
 
-let numeriRandom = []
+let numeriRandom = [] //array vuoto dove pushare i numeri random
 
-function numRandom (arrayNum){
-    for (i = 0; i < 5; i++){
-        let random = Math.floor(Math.random()* 50) + 1;
-        arrayNum.push(random);
+function numRandom(arrayNum) { //funzione per generare i numeri con un ciclo da 5 giri e un posto fittizio (tra le parentesi)
+    for (i = 0; i < 5; i++) {
+        let random = Math.floor(Math.random() * 50) + 1; //i numeri saranno da 1 a 50
+        arrayNum.push(random); // i numeri randomici vengono inseriti nell'array vuoto
     }
-    return arrayNum
+    return arrayNum // restituiamo il risultato della funzione e la chiudiamo
 }
 
-console.log(numRandom(numeriRandom));
+console.log(numRandom(numeriRandom)); //mettiamo nel campo fittizio dove la funzione deve svolgere il suo compito (ovvero l'array vuoto)
 
 //Creo una funzione per inserire i 5 numeri nell'HTML
 
-function displayNumbers(numbers){
+function displayNumbers(numbers) { //funzione per stampare i numeri nel file html
 
-    const numberList = document.getElementById('numbers-list');
+    const numberList = document.getElementById('numbers-list'); //creiamo variabile per collegare funzione con l'id nell'html dove andranno stampati i numeri
 
-    for (let i = 0; i < numbers.length; i++){
-        const liTag = document.createElement('li');
-        liTag.innerHTML = numbers[i];
-        numberList.appendChild(liTag);
+    for (let i = 0; i < numbers.length; i++) {
+        const liTag = document.createElement('li'); //nuova variabile: crea i tag "li"(list item) 
+        liTag.innerHTML = numbers[i]; //stampa ciò che viene inserito nella posizione fittizia (numeriRandom) con la variabile "liTag"
+        numberList.appendChild(liTag); //il metodo "appendChild" inserisce gli elementi di "liTag" nell'html collegato con l'id
     }
 }
 
-displayNumbers(numeriRandom)
+displayNumbers(numeriRandom) //mettiamo nel campo fittizio dove la funzione deve svolgere il suo compito (ovvero l'array in cui sono stati inseriti i numeri random)
 
 // Creo un intervallo per nascondere i 5 numeri e inserire il form con quelli che l'utente dovrà aggiungere
-const contatore = document.getElementById("countdown")
-let counter = 30;
-let timer;
+const contatore = document.getElementById("countdown") //creiamo variabile per collegare funzione con l'id nell'html dove verrà visualizzato il timer
+let counter = 30; //impostato a 30 secondi
+let timer; //?
 
-setInterval(function dNoneFunction(){
-    
+setInterval(function dNoneFunction() { //usiamo funzione timing "setInterval" per impostare timer per la funzione "dNoneFunction"
 
 
-    if( counter === -1 ){
 
-        clearInterval( dNoneFunction )
+    if (counter === -1) { //condizione: se il contatore arriva a 0 (é -1 perché se fosse 0 si fermerebbe a 1 nell'html) -->
 
-        const list = document.getElementById("numbers-list").classList
-        list.add("d-none");
+        clearInterval(dNoneFunction) //"clearInterval" termina la funzione di timing
 
-        const form = document.getElementById("answers-form").classList
+        const list = document.getElementById("numbers-list").classList  //creiamo variabili per aggiungere queste classi a questi tag html connessi con id, usando il metodo ".classList"
+        list.add("d-none"); //e poi "list.add" aggiunge il nome della classe (d-none significa display = none ed é presa da Boostrap)
+
+        const form = document.getElementById("answers-form").classList //idem come sopra
         form.remove("d-none");
 
-        const instructions = document.getElementById("instructions").classList
+        const instructions = document.getElementById("instructions").classList //idem come sopra
         instructions.add("d-none");
 
-        const count = document.getElementById("countdown").classList
+        const count = document.getElementById("countdown").classList //idem come sopra
         count.add("d-none");
 
-    } else {
+    } else { //altrimenti: stampa il contatore in html (sempre connesso con id) scendendo ogni volta di uno con il decremento
         contatore.innerHTML = counter--
     }
-    return counter
+    return counter // restituiamo il risultato della funzione e la chiudiamo
 
-}, 1000)
+}, 1000) //1000 imposta ogni quanto il contatore scende, e corrisponde a un secondo
 
 
-const valore = document.querySelectorAll (".form-control");
-const button = document.querySelector("button");
-const datiUtente = [];
+const valore = document.querySelectorAll(".form-control"); //creiamo variabili per connettere il form nell'html
+const button = document.querySelector("button"); //creiamo variabili per connettere il bottone nell'html
+const messaggio = document.getElementById("messaggio") //creiamo variabili per connettere il messaggio da mostrare all'utente nell'html
+const datiUtente = []; //array vuoto per i numeri inseriti dall'utente
 
-button.addEventListener("click", function (event) {
-    event.preventDefault();
-    for (let i = 0; i < valore.length; i++) {
-        datiUtente.push(parseInt(valore[i].value));
-        console.log(datiUtente);
-      }
+button.addEventListener("click", function (event) { //creiamo evento click per la variabile "button" con una funzione anonima e posizione fittizia
+    event.preventDefault(); //metodo per impedire al form di resettarsi al click
+
+    for (let i = 0; i < valore.length; i++) { //ciclo per raccogliere i 5 numeri inseriti dall'utente
+        if (numeriRandom.includes(parseInt(valore[i].value))){ //condizione per controllare se l'array "numeriRandom" include i numeri inseriti dall'utente
+            datiUtente.push(valore[i].value) //se si, inserisci i valori nell'array vuoto
+        }
+
+        console.log(datiUtente, valore[i].value, numeriRandom.includes(parseInt(valore[i].value))) //stampa in console i giri del ciclo, controllando ogni numero dell'utente con l'array numeriRandom
+    }
+
+    messaggio.innerHTML = `Complimenti ha indovinato: ${datiUtente.length}, e sono: ${datiUtente.join("-")}`//con la condizione soddisfatta, stampa nell'id in html "messaggio" questo testo con il template literal (i backtick = ``)
 })
-
-
-
-
-
-
-
-
-// function getUtente(newNumbers){
-
-//     for (let i = 0; i < 5; i++) {
-//     const utente = document.getElementById("answers-form");
-//     newNumbers.push(utente);
-//    }
-//     return newNumbers
-// }
-
-
-
-
-
-  
-
-
-
-
-
